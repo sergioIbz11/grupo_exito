@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/cart_provider.dart';
+import 'pay_button.dart';
 
 class AddButton extends ConsumerWidget {
   final String id;
@@ -17,14 +18,21 @@ class AddButton extends ConsumerWidget {
     final quantity = ref.watch(cartItemQuantityProvider(_productId));
     final cartNotifier = ref.read(cartProvider.notifier);
 
-    if (quantity <= 0) {
-      return _AddToCartButton(onPressed: () => cartNotifier.addItem(_productId));
-    }
-
-    return _QuantityStepper(
-      quantity: quantity,
-      onIncrement: () => cartNotifier.addItem(_productId),
-      onDecrement: () => cartNotifier.removeItem(_productId),
+    final button = switch (quantity) {
+      <= 0 => _AddToCartButton(
+        onPressed: () => cartNotifier.addItem(_productId),
+      ),
+      _ => _QuantityStepper(
+        quantity: quantity,
+        onIncrement: () => cartNotifier.addItem(_productId),
+        onDecrement: () => cartNotifier.removeItem(_productId),
+      ),
+    };
+    return Column(
+      children: [
+        const PayButton(),
+        button,
+      ],
     );
   }
 }

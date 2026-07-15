@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/utils/responsive_grid.dart';
 import '../../../../core/widgets/custom_search_app_bar.dart';
 import '../providers/productos_provider.dart';
 import '../widgets/product_item.dart';
@@ -59,8 +60,10 @@ class ProductsScreen extends ConsumerWidget {
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: gridCrossAxisCount(
+                      MediaQuery.sizeOf(context).width,
+                    ),
                     mainAxisSpacing: 8.0,
                     crossAxisSpacing: 8.0,
                     childAspectRatio: 0.65,

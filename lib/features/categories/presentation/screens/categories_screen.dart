@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/responsive_grid.dart';
 import '../../../../core/widgets/custom_search_app_bar.dart';
+import '../../../cart/presentation/widgets/toggle_cart.dart';
 import '../../../products/presentation/screens/products_screen.dart';
 import '../providers/categories_provider.dart';
 import '../widgets/category_item.dart';
@@ -47,6 +49,7 @@ class CategoriesScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const ToggleCart(),
                 const Padding(
                   padding: EdgeInsets.all(15.0),
                   child: Row(
@@ -61,12 +64,15 @@ class CategoriesScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
+
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.all(8.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: gridCrossAxisCount(
+                      MediaQuery.sizeOf(context).width,
+                    ),
                     mainAxisSpacing: 8.0,
                     crossAxisSpacing: 8.0,
                     childAspectRatio: 0.9,
