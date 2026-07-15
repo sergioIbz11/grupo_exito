@@ -1,0 +1,11 @@
+{
+  // Formatea automáticamente al guardar
+  "editor.formatOnSave": true,
+
+  // Organiza automáticamente los imports al guardar
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+
+}
